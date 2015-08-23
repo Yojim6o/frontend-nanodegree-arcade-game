@@ -11,7 +11,7 @@ var Enemy = function(x, y, speed) {
     this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = 'images/char-princess-girl.png';
 };
 
 // Update the enemy's position, required method for game
@@ -69,7 +69,7 @@ var bug2 = new Enemy(100,lanes[getRandomInt(0,3)],300);
 var bug3 = new Enemy(100,lanes[getRandomInt(0,3)],300);
 var bug4 = new Enemy(100,lanes[getRandomInt(0,3)],300);
 var bug5 = new Enemy(100,lanes[getRandomInt(0,3)],300);
-var allEnemies = [bug1,bug2,bug3,bug4,bug5];
+var allEnemies = [bug1,bug2,bug3,bug4,bug5,bug1,bug1,bug1,bug1];
 bug1.update();
 var player = new Player(PLAYER_X_COORDINATE,PLAYER_Y_COORDINATE);
 
