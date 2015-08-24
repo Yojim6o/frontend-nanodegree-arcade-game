@@ -1,4 +1,4 @@
-// contants
+// constants
 var PLAYER_X_COORDINATE = 200;
 var PLAYER_Y_COORDINATE = 390;
 
@@ -25,7 +25,7 @@ Enemy.prototype.update = function(dt) {
     } else {
         this.x = -100;
         this.y = lanes[getRandomInt(0,3)];
-        this.speed = getRandomInt(6,11)*50;
+        this.speed = getRandomInt(2,6)*100;
     };
 };
 
@@ -34,7 +34,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var lanes = [60,140,225];
+var lanes = [62,144,226]; //-20, 62, 144, 226, 308, 390
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -55,6 +55,17 @@ Player.prototype.update = function(dt) {
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+Player.prototype.handleInput = function(e) {
+    if (e === 'left') {
+        this.x -= 100;
+    } else if (e === 'right') {
+        this.x += 100;
+    } else if (e === 'up') {
+        this.y -= 82;
+    } else if (e === 'down') {
+        this.y += 82;
+    }
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -64,13 +75,12 @@ function getRandomInt(min, max) {
 };
 
 
-var bug1 = new Enemy(100,lanes[getRandomInt(0,3)],300);
-var bug2 = new Enemy(100,lanes[getRandomInt(0,3)],300);
-var bug3 = new Enemy(100,lanes[getRandomInt(0,3)],300);
-var bug4 = new Enemy(100,lanes[getRandomInt(0,3)],300);
-var bug5 = new Enemy(100,lanes[getRandomInt(0,3)],300);
-var allEnemies = [bug1,bug2,bug3,bug4,bug5,bug1,bug1,bug1,bug1];
-bug1.update();
+var bug1 = new Enemy(-100,lanes[getRandomInt(0,3)],getRandomInt(6,11)*50);
+var bug2 = new Enemy(0,lanes[getRandomInt(0,3)],getRandomInt(6,11)*50);
+var bug3 = new Enemy(100,lanes[getRandomInt(0,3)],getRandomInt(6,11)*50);
+var bug4 = new Enemy(250,lanes[getRandomInt(0,3)],getRandomInt(6,11)*50);
+var bug5 = new Enemy(300,lanes[getRandomInt(0,3)],getRandomInt(6,11)*50);
+var allEnemies = [bug1,bug2,bug3,bug4,bug5];
 var player = new Player(PLAYER_X_COORDINATE,PLAYER_Y_COORDINATE);
 
 
@@ -86,3 +96,19 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+/*var play = function() {
+    if (document.addEventListener.allowedKeys[left]) {
+        PLAYER_X_COORDINATE -= 100;
+    }
+}
+play();*/
+
+//If (PLAYER_Y_COORDINATE && PLAYER_X_COORDINATE) === (BUG_X_COORDINATE && BUG_Y_COORDINATE) then
+
+
+
+
+
+
+
