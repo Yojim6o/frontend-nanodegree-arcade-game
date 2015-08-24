@@ -57,13 +57,25 @@ Player.prototype.render = function() {
 };
 Player.prototype.handleInput = function(e) {
     if (e === 'left') {
-        this.x -= 100;
+        if (this.x === 0) {
+            this.x -= 0;
+        } else {
+            this.x -= 100;
+        }
     } else if (e === 'right') {
-        this.x += 100;
+        if (this.x === 400) {
+            this.x += 0;
+        } else {
+            this.x += 100;
+        }
     } else if (e === 'up') {
         this.y -= 82;
     } else if (e === 'down') {
-        this.y += 82;
+        if (this.y === 390) {
+            this.y += 0;
+        } else {
+            this.y += 82;
+        }
     }
 };
 
@@ -96,19 +108,3 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-/*var play = function() {
-    if (document.addEventListener.allowedKeys[left]) {
-        PLAYER_X_COORDINATE -= 100;
-    }
-}
-play();*/
-
-//If (PLAYER_Y_COORDINATE && PLAYER_X_COORDINATE) === (BUG_X_COORDINATE && BUG_Y_COORDINATE) then
-
-
-
-
-
-
-
