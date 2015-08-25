@@ -65,31 +65,25 @@ Player.prototype.render = function() {
 };
 Player.prototype.handleInput = function(e) {
     if (e === 'left') {
-        if (this.x === 0) {
-            this.x -= 0;
-        } else {
+        if (this.x !== 0) {
             this.x -= 101;
         }
     } else if (e === 'right') {
-        if (this.x === 404) {
-            this.x += 0;
-        } else {
+        if (this.x !== 404) {
             this.x += 101;
         }
     } else if (e === 'up') {
         this.y -= 83;
     } else if (e === 'down') {
-        if (this.y === 390) {
-            this.y += 0;
-        } else {
+        if (this.y !== 390) {
             this.y += 83;
         }
     }
     if (this.y < 0) {
         this.x = 202;
         this.y = 390;
-        //allEnemies.push(new Enemy(-100,62,500));
-        //console.log(allEnemies.length);
+        allEnemies.push(new Enemy(-100,62,500));
+        console.log(allEnemies.length);
     }
 };
 
@@ -98,17 +92,8 @@ Player.prototype.handleInput = function(e) {
 // Place the player object in a variable called player
 
 var allEnemies = [];
-for (var j = 0; j < 5; j++) {
-    var lanes = [62,144,226]; //-25, 58, 141, 224, 307, 390 (multiplier: 83)
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
-    var enemy = new Enemy((-100+100*[j]), lanes[getRandomInt(0,3)], getRandomInt(2,6)*100);
-    allEnemies.push(enemy);
-};
-
+allEnemies.push(new Enemy(-100,62,500));
 var player = new Player(PLAYER_X_COORDINATE,PLAYER_Y_COORDINATE);
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
