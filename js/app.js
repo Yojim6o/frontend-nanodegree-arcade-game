@@ -1,5 +1,5 @@
 // constants
-var PLAYER_X_COORDINATE = 200;
+var PLAYER_X_COORDINATE = 202;
 var PLAYER_Y_COORDINATE = 390;
 
 // Enemies our player must avoid
@@ -20,21 +20,23 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    var lanes = [62,144,226]; //-25, 58, 141, 224, 307, 390 (multiplier: 83)
     if (this.x < 525) {
         this.x += this.speed * dt;  
     } else {
         this.x = -100;
         this.y = lanes[getRandomInt(0,3)];
         this.speed = getRandomInt(2,6)*100;
-    };
+    }
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
-var lanes = [62,144,226]; //-20, 62, 144, 226, 308, 390 (multiplier: 82)
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -52,12 +54,9 @@ var Player = function(x, y) {
 Player.prototype.update = function(dt) {
     for (var i = 0; i < allEnemies.length; i++)
     if (
-        this.x <= (allEnemies[i].x + 32)
-        && allEnemies[i].x <= (this.x + 32)
-        && this.y <= (allEnemies[i].y + 32)
-        && allEnemies[i].y <= (this.y + 32)
+        this.x <= (allEnemies[i].x + 32) && allEnemies[i].x <= (this.x + 32) && this.y <= (allEnemies[i].y + 32) && allEnemies[i].y <= (this.y + 32)
     ) {
-        this.x = 200;
+        this.x = 202;
         this.y = 390;
     }
 };
@@ -69,43 +68,45 @@ Player.prototype.handleInput = function(e) {
         if (this.x === 0) {
             this.x -= 0;
         } else {
-            this.x -= 100;
+            this.x -= 101;
         }
     } else if (e === 'right') {
-        if (this.x === 400) {
+        if (this.x === 404) {
             this.x += 0;
         } else {
-            this.x += 100;
+            this.x += 101;
         }
     } else if (e === 'up') {
-        this.y -= 82;
+        this.y -= 83;
     } else if (e === 'down') {
         if (this.y === 390) {
             this.y += 0;
         } else {
-            this.y += 82;
+            this.y += 83;
         }
     }
-    if (this.y === -20) {
-        this.x = 200;
+    if (this.y < 0) {
+        this.x = 202;
         this.y = 390;
+        //allEnemies.push(new Enemy(-100,62,500));
+        //console.log(allEnemies.length);
     }
 };
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+
+var allEnemies = [];
+for (var j = 0; j < 5; j++) {
+    var lanes = [62,144,226]; //-25, 58, 141, 224, 307, 390 (multiplier: 83)
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
+    var enemy = new Enemy((-100+100*[j]), lanes[getRandomInt(0,3)], getRandomInt(2,6)*100);
+    allEnemies.push(enemy);
 };
 
-
-var bug1 = new Enemy(-100,lanes[getRandomInt(0,3)],getRandomInt(2,6)*100);
-var bug2 = new Enemy(0,lanes[getRandomInt(0,3)],getRandomInt(2,6)*100);
-var bug3 = new Enemy(100,lanes[getRandomInt(0,3)],getRandomInt(2,6)*100);
-var bug4 = new Enemy(250,lanes[getRandomInt(0,3)],getRandomInt(2,6)*100);
-var bug5 = new Enemy(300,lanes[getRandomInt(0,3)],getRandomInt(2,6)*100);
-var allEnemies = [bug1,bug2,bug3,bug4,bug5];
 var player = new Player(PLAYER_X_COORDINATE,PLAYER_Y_COORDINATE);
 
 
